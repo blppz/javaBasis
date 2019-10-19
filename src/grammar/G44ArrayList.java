@@ -10,6 +10,15 @@ import java.util.List;
  * @Date 2019/10/17 21:55
  */
 public class G44ArrayList {
+
+  /**
+   * 扩容机制方法为：
+   * private void grow(int minCapacity)
+   * int newCapacity = oldCapacity + (oldCapacity >> 1);
+   * 默认为10 --private static final int DEFAULT_CAPACITY = 10;
+   * 每次扩容为增加原来的一半
+   * */
+
   public static void main(String[] args) {
     test1();
   }
