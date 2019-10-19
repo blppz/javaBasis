@@ -38,6 +38,13 @@ public class G48HashMap {
    *  扩容问题
    *   HashMap的位桶数组，初始大小为16。实际使用时，显然大小是可变的。
    *   如果位桶数组中的元素达到(0.75*数组 length)， 就重新调整数组大小变为原来2倍大小
+   *
+   * 遍历用什么方法？
+   * 看需求吧
+   * 如果key、value都是需要的，最好就是使用entrySet，因为只遍历了一次
+   * 如果是keySet，在拿到所有的key之后，还需要根据key去拿value，效率肯定低了
+   * 如果是values，那就拿不到key了，这个用的少
+   * 另外，lambda表达式也是OK的，而且用法更简单，只是需要JDK版本8+
    */
 
   public static void main(String[] args) {

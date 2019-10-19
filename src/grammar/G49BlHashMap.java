@@ -1,19 +1,19 @@
 package grammar;
 
 /**
- * @Deacription TODO
+ * @Deacription 手撸一个简单的HashMap
  * @Author BarryLee
  * @Date 2019/10/19 9:15
  */
 public class G49BlHashMap {
   public static void main(String[] args) {
-    BlHashMap map = new BlHashMap();
+    BlHashMap<String, String> map = new BlHashMap<>();
     map.put("1001", "老干妈");
     map.put("1002", "老干爹");
     map.put("1003", "葡萄干");
     //test1(map);
-    test2(map);
-    //test3(map);
+    //test2(map);
+    test3(map);
   }
   public static void test3(BlHashMap map) {
     System.out.println(map.get("1001"));
@@ -45,7 +45,7 @@ class HashNode {
 /**
  * 手动实现一个HashMap
  */
-class BlHashMap {
+class BlHashMap<K, V> {
   // 当前大小
   private int size;
   // 默认
@@ -66,7 +66,7 @@ class BlHashMap {
    * 4.如果这个桶已经有元素了，就需要进行遍历这个链表
    * 5.遍历过程中，如果key相等，就是value的替换，如果不等，就一直找到最后一个挂上去
    */
-  public void put(Object key, Object value) {
+  public void put(K key, V value) {
     int hash = getHash(key.hashCode(), table.length);
     HashNode newNode = new HashNode();
     newNode.hash = hash;
@@ -98,13 +98,13 @@ class BlHashMap {
    * @param key key
    * @return value
    */
-  public Object get(Object key) {
-    Object value = null;
+  public V get(K key) {
+    V value = null;
     int hash = getHash(key.hashCode(), table.length);
     HashNode temp = table[hash];
     while(temp != null) {
       if(temp.key.equals(key)) {
-        value = temp.value;
+        value = (V) temp.value;
         break;
       }
       temp = temp.next;
