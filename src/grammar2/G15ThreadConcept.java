@@ -12,5 +12,50 @@ public class G15ThreadConcept {
    *
    * 进程是针对操作系统来讲的
    * 每个线程都有自己的工作空间
+   *
+   * 创建线程的三种方式
+   * 1.继承Thread类，重写run方法
+   * 2.实现Runnable接口，重写run方法
+   * 3.实现Callable接口，重写call方法
+   *
+   * 我们需要调用的是start方法，start方法内部会调用run
+   * 但是如果不小心手动调用了run方法，就会发现我们并没有新的线程执行run方法里面的内容，也就是普通方法的调用
+   *
+   * start()方法官方解释：导致此线程开始执行; Java虚拟机调用此线程的run方法。
+   * 也就是说start方法不是启动了线程，而是通知
    */
+  public static void main(String[] args) {
+    // 简单测试多线程
+    G15Thread t1 = new G15Thread();
+    t1.start();
+
+    G15Runnable t2 = new G15Runnable();
+    new Thread(t2).start();
+
+    int n = 10;
+    while(n-- > 0) {
+      System.out.println("coding");
+    }
+  }
+}
+
+class G15Thread extends Thread{
+  @Override
+  public void run() {
+    int n = 10;
+    while(n-- > 0) {
+      System.out.println("听歌");
+    }
+  }
+}
+
+class G15Runnable implements Runnable {
+
+  @Override
+  public void run() {
+    int n = 10;
+    while(n-- > 0) {
+      System.out.println("撩妹");
+    }
+  }
 }
