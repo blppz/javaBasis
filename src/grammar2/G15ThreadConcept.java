@@ -23,6 +23,14 @@ public class G15ThreadConcept {
    *
    * start()方法官方解释：导致此线程开始执行; Java虚拟机调用此线程的run方法。
    * 也就是说start方法不是启动了线程，而是通知
+   *
+   * 线程状态相关概念
+   * 1.新生态：new之后进入新生态
+   * 2.就绪态：start方法调用时候进入就绪态
+   * 3.运行态：获取到了CPU时间片（调度器调度）
+   * 4.阻塞态：1.其他阻塞sleep/join、IO（read, write）、2.等待阻塞wait --notify-> 3.同步阻塞synchronized
+   * 5.死亡态：程序正常执行完毕、stop()
+   * 这些状态在API中由具体参数，其中就绪和运行都是Runnable
    */
   public static void main(String[] args) {
     // 简单测试多线程
