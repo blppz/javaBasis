@@ -1,5 +1,8 @@
 package util;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 /**
  * @Deacription 工具类
  * @Author BarryLee
@@ -18,5 +21,20 @@ public class Utils {
       System.out.print(a + "  ");
     }
     System.out.println();
+  }
+
+  /**
+   * 关流
+   */
+  public static void close(Closeable... closeables) {
+    for(Closeable c: closeables) {
+      try {
+        if(null != c) {
+          c.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
