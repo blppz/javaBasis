@@ -1,4 +1,4 @@
-package grammar3.myServer;
+package grammar3.myServer.core;
 
 import grammar3.servlet.Entity;
 import grammar3.servlet.ServletMapping;

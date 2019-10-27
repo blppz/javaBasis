@@ -1,4 +1,7 @@
-package grammar3.servlet;
+package grammar3.myServer.core;
+
+import grammar3.servlet.Entity;
+import grammar3.servlet.ServletMapping;
 
 import java.util.HashMap;
 import java.util.List;

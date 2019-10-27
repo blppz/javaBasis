@@ -1,4 +1,4 @@
-package grammar3.myServer;
+package grammar3.myServer.core;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

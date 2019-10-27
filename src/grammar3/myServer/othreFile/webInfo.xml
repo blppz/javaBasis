@@ -2,11 +2,15 @@
 <web-app>
  <servlet>
   <servlet-name>login</servlet-name>
-  <servlet-class>grammar3.myServer.LoginServlet</servlet-class>
+  <servlet-class>grammar3.myServer.servlet.LoginServlet</servlet-class>
  </servlet>
  <servlet>
   <servlet-name>register</servlet-name>
-  <servlet-class>grammar3.myServer.RegisterServlet</servlet-class>
+  <servlet-class>grammar3.myServer.servlet.RegisterServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>regAction</servlet-name>
+  <servlet-class>grammar3.myServer.servlet.RegActionServlet</servlet-class>
  </servlet>
  <servlet-mapping>
   <servlet-name>login</servlet-name>
@@ -16,5 +20,10 @@
  <servlet-mapping>
   <servlet-name>register</servlet-name>
   <url-pattern>/register</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>regAction</servlet-name>
+  <url-pattern>/regAction</url-pattern>
+  <url-pattern>/g</url-pattern>
  </servlet-mapping>
 </web-app>

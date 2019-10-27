@@ -1,4 +1,4 @@
-package grammar3.myServer;
+package grammar3.myServer.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,14 +25,22 @@ public class Request {
     try {
       paramMap = new HashMap<>();
       in = socket.getInputStream();
-      byte[] data = new byte[1024*1024];
+      // 可能发生的异常：StringIndexOutOfBoundsException
+      // 原因是len 为 -1。。。
+      byte[] data = new byte[1024*1024*1024];
       int len = in.read(data);
-      requestInfo = new String(data, 0, len);
+      if(len > -1) {
+        requestInfo = new String(data, 0, len);
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
   public void parseRequestInfo() {
+    if(requestInfo == null || requestInfo.length() == 0) {
+      return;
+    }
+
     //GET /index.html?name=aa&pwd=111 HTTP/1.1
     int spritIdx = requestInfo.indexOf("/");
     method = requestInfo.substring(0, spritIdx - 1);
@@ -53,16 +61,6 @@ public class Request {
     //System.out.println(postParam);
     param = param!=null&&param.length()>0 ? param+"&"+postParam : postParam;
     convertMap(param);
-
-    //System.out.println("pattern=" + pattern);
-    //System.out.println("param=" + param);
-    //Set<Map.Entry<String, List<String>>> entries = paramMap.entrySet();
-    //for(Map.Entry<String, List<String>>entry: entries) {
-    //  String key = entry.getKey();
-    //  List<String> values = entry.getValue();
-    //  System.out.println(key);
-    //  System.out.println(values);
-    //}
   }
   private void convertMap(String param) {
     if(param != null && param.length() > 0) {
@@ -81,15 +79,28 @@ public class Request {
           paramMap.put(key, values);
         }
       }
+      Set<String> keySet = paramMap.keySet();
+      for(String key: keySet) {
+        System.out.println("-------");
+        System.out.println(key);
+        System.out.println(paramMap.get(key));
+      }
     }
   }
-  public String getValue(String key) {
+  public String getParameter(String key) {
+    System.out.println("key=" + key);
     List<String> values = paramMap.get(key);
-    return values.get(0);
+    if(values != null) {
+      return values.get(0);
+    }
+    return null;
   }
-  public String[] getValues(String key) {
+  public String[] getParameters(String key) {
     List<String> values = paramMap.get(key);
-    return values.toArray(new String[0]);
+    if(values != null) {
+      return values.toArray(new String[0]);
+    }
+    return null;
   }
 
   // 处理中文乱码

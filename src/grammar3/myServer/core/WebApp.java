@@ -1,6 +1,4 @@
-package grammar3.myServer;
-
-import grammar3.servlet.WebContext;
+package grammar3.myServer.core;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -19,7 +17,7 @@ public class WebApp {
       WebHandler handler = new WebHandler();
       // 这个名字为web.xml就报错，空指针，拿不到inputStream!!，这个何解
       parser.parse(Thread.currentThread().getContextClassLoader()
-          .getResourceAsStream("webInfo.xml"), handler);
+          .getResourceAsStream("grammar3/myServer/othreFile/webInfo.xml"), handler);
       context = new WebContext(
           handler.getServletList(),
           handler.getMappingList()
