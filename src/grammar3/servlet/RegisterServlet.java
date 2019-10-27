@@ -8,6 +8,6 @@ package grammar3.servlet;
 public class RegisterServlet implements Servlet {
   @Override
   public void service() {
-    System.out.println("register service");
+    System.out.println("注册");
   }
 }

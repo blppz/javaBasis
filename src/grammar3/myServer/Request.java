@@ -1,13 +1,11 @@
 package grammar3.myServer;
 
-import com.sun.org.apache.xerces.internal.impl.validation.EntityState;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.net.URLDecoder;
+import java.util.*;
 
 /**
  * @Deacription TODO
@@ -19,7 +17,9 @@ public class Request {
   private String requestInfo;
   private String method;
   private String pattern;
-  private Map<String, String> paramMap;
+  private Map<String, List<String>> paramMap;
+  private static final String BLANK = " ";
+  private static final String CRLF = "\r\n";
   public Request() {}
   public Request(Socket socket) {
     try {
@@ -38,30 +38,75 @@ public class Request {
     method = requestInfo.substring(0, spritIdx - 1);
     int beforeHttpIdx = requestInfo.indexOf(" HTTP/");
     String info = requestInfo.substring(spritIdx + 1, beforeHttpIdx);
-    System.out.println("---------");
-    System.out.println(info);
     int quesIdx = info.indexOf("?");
     String param = null;
     if(quesIdx > -1) {
       String[] strs = info.split("\\?");
-      System.out.println("len = " + strs.length);
       pattern = strs[0];
       param = strs[1];
     } else {
       pattern = info;
     }
-    if(param != null) {
+
+    // 如果是post请求，最后一行可能有参数
+    String postParam = requestInfo.substring(requestInfo.lastIndexOf(CRLF)).trim();
+    //System.out.println(postParam);
+    param = param!=null&&param.length()>0 ? param+"&"+postParam : postParam;
+    convertMap(param);
+
+    //System.out.println("pattern=" + pattern);
+    //System.out.println("param=" + param);
+    //Set<Map.Entry<String, List<String>>> entries = paramMap.entrySet();
+    //for(Map.Entry<String, List<String>>entry: entries) {
+    //  String key = entry.getKey();
+    //  List<String> values = entry.getValue();
+    //  System.out.println(key);
+    //  System.out.println(values);
+    //}
+  }
+  private void convertMap(String param) {
+    if(param != null && param.length() > 0) {
       String[] strs = param.split("&");
       for(String item: strs) {
         String[] entity = item.split("=");
-        paramMap.put(entity[0], entity[1]);
+        entity = Arrays.copyOf(entity, 2);
+        String key = entity[0];
+        String value = decode(entity[1], "utf-8");
+        if(paramMap.containsKey(key)) {
+          List<String> values = paramMap.get(key);
+          values.add(value);
+        } else {
+          List<String> values = new ArrayList<>();
+          values.add(value);
+          paramMap.put(key, values);
+        }
       }
     }
-    System.out.println("pattern=" + pattern);
-    System.out.println("param=" + param);
-    Set<Map.Entry<String, String>> entries = paramMap.entrySet();
-    for(Map.Entry<String, String> entry: entries) {
-      System.out.println(entry.getKey() + ": " + entry.getValue());
+  }
+  public String getValue(String key) {
+    List<String> values = paramMap.get(key);
+    return values.get(0);
+  }
+  public String[] getValues(String key) {
+    List<String> values = paramMap.get(key);
+    return values.toArray(new String[0]);
+  }
+
+  // 处理中文乱码
+  public String decode(String val, String enc) {
+    String res = val;
+    try {
+      res = URLDecoder.decode(val, enc);
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
     }
+    return res;
+  }
+
+  public String getPattern() {
+    return pattern;
+  }
+  public String getMethod() {
+    return method;
   }
 }

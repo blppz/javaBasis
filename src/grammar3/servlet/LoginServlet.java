@@ -8,6 +8,6 @@ package grammar3.servlet;
 public class LoginServlet implements Servlet {
   @Override
   public void service() {
-    System.out.println("login service");
+    System.out.println("登录");
   }
 }
