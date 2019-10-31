@@ -21,13 +21,13 @@ public class G40Exception {
    * ArithmeticException
    * StakeOverFloatException
    * ArrayIndexOutOfBandsException
-   * CalssNotFondException
    * IllegalArgumentException
    * NumberFormatException
    *
    */
 
   public static void main(String[] args) {
+    Integer.parseInt("a");
     try {
       int a = 1;
       int b = 0;

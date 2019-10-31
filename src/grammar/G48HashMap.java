@@ -1,5 +1,8 @@
 package grammar;
 
+import org.junit.Test;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,5 +110,13 @@ public class G48HashMap {
    */
   public static void test24(Map map) {
     map.forEach((key, value) -> System.out.println(key + ": " + value));
+  }
+
+  @Test
+  public void test1() {
+    Date date = new Date();
+    int code = date.hashCode();
+    System.out.println(code);
+    System.out.println(code&15);
   }
 }

@@ -17,6 +17,7 @@ public class G26ThreadSetPriority {
   public static void main(String[] args) {
     Thread t1 = new Thread(new MyRun());
     Thread t2 = new Thread(new MyRun());
+    t1.checkAccess();
     System.out.println(t1.getPriority());
     //Thread t3 = new Thread(new MyRun());
     //Thread t4 = new Thread(new MyRun());

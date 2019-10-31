@@ -1,6 +1,5 @@
 package grammar;
 
-import static java.lang.Math.*;
 import static java.lang.Math.PI;
 
 /**

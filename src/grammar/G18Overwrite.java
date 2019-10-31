@@ -1,5 +1,7 @@
 package grammar;
 
+import java.io.IOException;
+
 /**
  * @Deacription 重写
  * @Author BarryLee
@@ -15,16 +17,17 @@ public class G18Overwrite {
    * 3.“≥”：访问权限，子类大于等于父类。
    */
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     G18Student student = new G18Student();
     student.study();
     student.eat();
   }
 }
 
-class G18Persion{
+// 父类
+class G18Person {
   String name;
-  public G18Persion study() {
+  public G18Person study() throws Exception {
     System.out.println("学习");
     return this;
   }
@@ -33,9 +36,10 @@ class G18Persion{
   }
 }
 
-class G18Student extends G18Persion{
+// 子类
+class G18Student extends G18Person {
   String name;
-  public G18Student study() {
+  public G18Student study() throws IOException {
     System.out.println("敲代码");
     return this;
   }

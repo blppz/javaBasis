@@ -14,7 +14,7 @@ public class G05Char {
    * GB2312
    * Unicode
    *   Unicode分为定长和变长两种
-   *   UTF-8是边长的
+   *   UTF-8是变长的
    *
    * 字符 -> 字节：编码
    * 字节 -> 字符：解码
