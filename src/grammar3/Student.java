@@ -61,3 +61,24 @@ class Student {
         '}';
   }
 }
+interface A{
+  void a(int a);
+}
+interface B{
+  void a();
+}
+class CC implements A, B{
+  @Override
+  public void a(int a) {
+
+  }
+
+  @Override
+  public void a() {
+
+  }
+}
+
+interface C extends A, B{
+
+}
