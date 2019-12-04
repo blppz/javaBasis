@@ -1,4 +1,4 @@
-package java8;
+package java8.lambdaTest;
 
 import org.junit.Test;
 

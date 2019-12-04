@@ -1,4 +1,4 @@
-package java8;
+package java8.lambdaTest;
 
 import java8.intefa.MyInte1;
 import java8.intefa.MyInte2;

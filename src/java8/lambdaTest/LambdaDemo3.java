@@ -1,8 +1,7 @@
-package java8;
+package java8.lambdaTest;
 
 import org.junit.Test;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
